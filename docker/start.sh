@@ -6,6 +6,13 @@ env=${APP_ENV:-production}
 role=${CONTAINER_ROLE:-app}
 
 if [ "$env" != "local" ]; then
+    (
+        cd /var/www/html &&
+        php artisan config:cache &&
+        php artisan route:cache &&
+        php artisan view:cache
+    )
+
     echo "Removing XDebug"
 
     rm -rf /usr/local/etc/php/conf.d/{docker-php-ext-xdebug.ini, xdebug.ini}
