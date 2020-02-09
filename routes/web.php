@@ -16,3 +16,5 @@
 //});
 
 Route::view('/', 'welcome');
+
+Route::get('/podcasts', 'PodcastController@index');
