@@ -9,6 +9,7 @@ COPY . /var/www/html
 COPY docker/vhost.conf /etc/apache2/sites-available/000-default.conf
 COPY docker/config/php/conf.d/*.ini /usr/local/etc/php/conf.d
 COPY docker/start.sh /user/local/bin/start
+COPY docker/config/php/php.ini /usr/local/etc/php
 
 RUN chown -R www-data:www-data /var/www/html \
     && chmod +x /user/local/bin/start
