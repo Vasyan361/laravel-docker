@@ -13,22 +13,22 @@ RUN apt-get update -yqq \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug opcache
 
-ADD . /var/www/html
+COPY . /var/www/html
 
 # PHP
-ADD docker/config/php/conf.d/*.ini /usr/local/etc/php/conf.d/
-ADD docker/config/php/php.ini /usr/local/etc/php
-ADD docker/config/php/php-fpm.d/docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
+COPY docker/config/php/conf.d/*.ini /usr/local/etc/php/conf.d/
+COPY docker/config/php/php.ini /usr/local/etc/php
+COPY docker/config/php/php-fpm.d/docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 
 # Superisor
-ADD docker/config/supervisor/supervisord.conf /etc/supervisor
-ADD docker/config/supervisor/conf.d/*.conf /etc/supervisor/conf.d-available/
+COPY docker/config/supervisor/supervisord.conf /etc/supervisor
+COPY docker/config/supervisor/conf.d/*.conf /etc/supervisor/conf.d-available/
 
 # Nginx
-ADD docker/config/nginx/default /etc/nginx/sites-available/
-ADD docker/config/nginx/h5bp/ /etc/nginx/h5bp
+COPY docker/config/nginx/default /etc/nginx/sites-available/
+COPY docker/config/nginx/h5bp/ /etc/nginx/h5bp
 
-ADD docker/start.sh /user/local/bin/start
+COPY docker/start.sh /user/local/bin/start
 
 RUN chown -R www-data:www-data /var/www/html \
     && chmod +x /user/local/bin/start \
